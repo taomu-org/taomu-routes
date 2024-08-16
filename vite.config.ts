@@ -13,9 +13,9 @@ export default defineConfig({
   build: {
     lib: {
       name: 'taomu-routes',
-      entry: './lib/main.ts',
+      entry: './lib/index.ts',
       formats: ['es', 'cjs'],
-      fileName: 'main',
+      fileName: 'index',
     },
   },
 })

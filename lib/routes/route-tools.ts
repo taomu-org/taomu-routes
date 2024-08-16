@@ -4,12 +4,15 @@ import type { NavigateOptions } from 'react-router-dom'
 import { dispatchCustomEvent } from '../hooks'
 import type { RouteChangeParams } from '../defines'
 
-import { routes } from './create-routes'
+import { AutoRoutes, type RoutesId } from './auto-routes'
 
-export interface NavigateToByRouteNameOptions extends NavigateOptions {
+export interface RouteCommonArgs {
+  routesId?: RoutesId
   params?: Record<string, any>
   query?: Record<string, any>
 }
+
+export interface NavigateToByRouteNameOptions extends NavigateOptions, RouteCommonArgs {}
 
 /**
  * 格式化路由路径
@@ -19,7 +22,7 @@ export interface NavigateToByRouteNameOptions extends NavigateOptions {
  * @param query
  * @returns
  */
-export function formatRoutePath(path: string, params?: Record<string, any>, query?: Record<string, any>) {
+export function formatRoutePath(path: string, params?: RouteCommonArgs['params'], query?: RouteCommonArgs['query']) {
   let pathStr = path
 
   if (typeof params === 'object') {
@@ -56,19 +59,49 @@ export function formatRoutePath(path: string, params?: Record<string, any>, quer
  * 通过 routeName 获取路由 Path
  *
  * @param name
- * @param params
- * @param query
+ * @param options
  * @returns
  */
-export function getRoutePathByName(
-  name: string,
-  { params, query }: { params?: Record<string, any>; query?: Record<string, any> } = {}
-) {
-  const routeConfig = routes.get(name)
+export function getRoutePathByName(name: string, { params, query, routesId }: RouteCommonArgs = {}) {
+  const routeConfig = findRoutesInstance(routesId)?.get(name)
   if (!routeConfig) throw new Error(`getRoutePathByName: Route<${name}> not found`)
   if (!routeConfig.path) throw new Error(`getRoutePathByName: The Route<${name}> path field does not exist`)
 
   return formatRoutePath(routeConfig.path, params, query)
+}
+
+/**
+ * 查找 Routes 实例
+ *
+ * @param routesId
+ * @returns
+ */
+export function findRoutesInstance(routesId?: RoutesId): AutoRoutes | void {
+  let routesIns: AutoRoutes | undefined
+
+  if (routesId) {
+    routesIns = AutoRoutes.allRoutesMapStorage.get(routesId)
+  } else if (AutoRoutes.allRoutesMapStorage.size > 1) {
+    throw new Error(`findRoutesInstance: Multiple AutoRoutes instances exist, RoutesId is required.`)
+  } else {
+    routesIns = AutoRoutes.allRoutesMapStorage.values().next().value
+  }
+
+  return routesIns
+}
+
+/**
+ * 获取通信事件 key
+ *
+ * @param routesId
+ * @returns
+ */
+export function getNavigateEventKey(routesId?: RoutesId | AutoRoutes) {
+  const routesIns = routesId instanceof AutoRoutes ? routesId : findRoutesInstance(routesId)
+  if (!routesIns) {
+    throw new Error(`getNavigateEventKey: Routes Instance not found`)
+  }
+  return `auto-routes-navigate:${routesIns.id}`
 }
 
 /**
@@ -86,18 +119,33 @@ export function checkPathParamsUnique(path: string): boolean {
   return !hasDuplicate(params)
 }
 
-/** 路由跳转 */
-export function navigateTo(to: RouteChangeParams['to'], options?: NavigateOptions) {
-  dispatchCustomEvent('app:route:change', { to, options })
+/**
+ * 路由跳转
+ *
+ * @param to
+ * @param options
+ */
+export function navigateTo(to: RouteChangeParams['to'], options: NavigateToByRouteNameOptions = {}) {
+  dispatchCustomEvent(getNavigateEventKey(options.routesId), { to, options })
 }
 
-/** 通过 routeName 跳转路由 (当前项目) */
-export function navigateToByRouteName(name: string, { params, query, ...options }: NavigateToByRouteNameOptions = {}) {
-  const path = getRoutePathByName(name, { params, query })
+/**
+ * 通过 routeName 跳转路由
+ *
+ * @param name
+ * @param options
+ * @returns
+ */
+export function navigateToByRouteName(name: string, options: NavigateToByRouteNameOptions = {}) {
+  const path = getRoutePathByName(name, options)
   return navigateTo(path, options)
 }
 
-/** 返回上一页 */
+/**
+ * 返回上一页
+ *
+ * @param num
+ */
 export function goBack(num = -1) {
   navigateTo(num)
 }

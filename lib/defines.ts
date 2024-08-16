@@ -1,6 +1,14 @@
 import type { RouteProps, Location, NavigateFunction, NavigateOptions } from 'react-router-dom'
 import type { AppRouterProps } from './components'
 
+declare global {
+  export interface TaomuRouteConfig extends RouteConfig {}
+  export interface TaomuPageProps<Params = Record<string, unknown>, Query = Record<string, unknown>, LocationState = unknown>
+    extends PageProps<Params, Query, LocationState> {}
+  export interface TaomuBeforeRouterFC<Props, BeforeRouterRes extends Record<string, any>>
+    extends ReactBeforeRouterFC<Props, BeforeRouterRes> {}
+}
+
 export type RouteElement = Promise<any> | ((props: PageProps) => React.ReactNode | Promise<any>)
 
 export interface RouteConfig extends Omit<RouteProps, 'children' | 'element'>, Record<string, any> {
@@ -61,19 +69,20 @@ export interface RouteConfig extends Omit<RouteProps, 'children' | 'element'>, R
   parentNamePath?: string[]
 }
 
-interface RouteLocation<S = unknown> extends Location {
-  state: S
+interface RouteLocation<States = unknown> extends Location {
+  state: States
 }
 
-interface RouteContextType<Q = Record<string, unknown>, P = Record<string, unknown>, S = unknown> extends Record<string, any> {
+export interface RouteContextType<Params = Record<string, unknown>, Query = Record<string, unknown>, States = unknown>
+  extends Record<string, any> {
   /** 由 location.search 转换来的对象 */
-  query: Q
+  query: Query
   /** react-router location 对象 */
-  location: RouteLocation<S>
+  location: RouteLocation<States>
   /** react-router 路由跳转方法 */
   navigate: NavigateFunction
   /** 路由参数 */
-  params: P
+  params: Params
   /** 根路由创建时传入的 props */
   createProps: AppRouterProps
   /** 是否是抽屉预览 */
@@ -93,9 +102,24 @@ interface BeforeRouteProps {
   dispatchBeforeRouter?: <Result = any, AddProps extends RouteProps = RouteProps>(addProps?: AddProps) => Promise<Result>
 }
 
+interface RouteStatic<P = any, R extends Record<string, any> = Record<string, any>> {
+  /**
+   * ## 私有 beforeRouter 钩子
+   *
+   * - 你可以在当前路由的私有 beforeRouter 钩子中准备必要的数据
+   * - 这么做的好处是可以在页面正式渲染前将所有数据准备就绪，从而避免Loading闪烁/页面抖动
+   * - 你可以通过 props.dispatchBeforeRouter 来重新触发 beforeRouter 以刷新准备数据，同时这会触发一次组件重渲染
+   * - beforeRouter 的返回值可以是一个对象，其中的所有字段会平铺到 props 中，返回的类型需要手动定义
+   *
+   * @param props 当前路由的 props
+   * @returns 必须返回一个 Promise
+   */
+  beforeRouter?: (props: P) => Promise<R | void>
+}
+
 /** 路由 props  */
-export interface PageProps<P = Record<string, unknown>, Q = Record<string, unknown>, LocationState = unknown>
-  extends RouteContextType<Q, P, LocationState>,
+export interface PageProps<Params = Record<string, unknown>, Query = Record<string, unknown>, LocationState = unknown>
+  extends RouteContextType<Params, Query, LocationState>,
     RouteConfig,
     BeforeRouteProps {}
 
@@ -103,3 +127,6 @@ export interface RouteChangeParams {
   to: string | number
   options?: NavigateOptions
 }
+
+export type ReactBeforeRouterFC<Props, BeforeRouterRes extends Record<string, any>> = React.FC<Props & BeforeRouterRes> &
+  RouteStatic<Props, BeforeRouterRes>

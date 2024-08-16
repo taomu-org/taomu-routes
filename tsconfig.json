@@ -21,7 +21,7 @@
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "types",
-    "outDir": "dist"
+    "outDir": "dist",
   },
   "include": [
     "lib",
