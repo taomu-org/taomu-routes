@@ -12,7 +12,7 @@ export default defineConfig({
 
   build: {
     rollupOptions: {
-      external: ['react', 'react-router-dom'],
+      external: ['react', 'react-router-dom', 'taomu-toolkit'],
     },
     lib: {
       name: 'taomu-routes',
