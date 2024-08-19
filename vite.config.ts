@@ -11,6 +11,9 @@ export default defineConfig({
   },
 
   build: {
+    rollupOptions: {
+      external: ['react', 'react-router-dom'],
+    },
     lib: {
       name: 'taomu-routes',
       entry: './lib/index.ts',

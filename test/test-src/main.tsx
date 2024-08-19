@@ -13,6 +13,6 @@ console.log(routes)
 
 root.render(
   <div>
-    <AppRouter />
+    <AppRouter routes={routes} />
   </div>
 )

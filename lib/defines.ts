@@ -40,12 +40,6 @@ export interface RouteConfig extends Omit<RouteProps, 'children' | 'element'>, R
   showNavbar?: boolean
   /** 是否显示面包屑 */
   showBreadcrumb?: boolean
-  /**
-   * 自动替换 url 布局参数
-   *
-   * @deprecated
-   */
-  autoReplaceLayoutQuery?: boolean
   /** 自动替换页面标题 */
   autoReplaceTitle?: boolean
   /**
@@ -85,8 +79,7 @@ export interface RouteContextType<Params = Record<string, unknown>, Query = Reco
   params: Params
   /** 根路由创建时传入的 props */
   createProps: AppRouterProps
-  /** 是否是抽屉预览 */
-  isPreview?: boolean
+  /** 构建环境变量 */
   BUILD_ENV?: string
 }
 
@@ -130,3 +123,8 @@ export interface RouteChangeParams {
 
 export type ReactBeforeRouterFC<Props, BeforeRouterRes extends Record<string, any>> = React.FC<Props & BeforeRouterRes> &
   RouteStatic<Props, BeforeRouterRes>
+
+export type BeforeRouterHook = (
+  props: PageProps,
+  next: (addProps?: PageProps) => void
+) => boolean | void | Promise<boolean | void>

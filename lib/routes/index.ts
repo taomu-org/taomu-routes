@@ -1,2 +1,2 @@
 export * from './auto-routes'
-export * from './route-tools'
+export * as routeTools from './route-tools'
