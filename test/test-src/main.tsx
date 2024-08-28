@@ -13,6 +13,8 @@ console.log(routes)
 
 root.render(
   <div>
-    <AppRouter routes={routes} />
+    <React.StrictMode>
+      <AppRouter routes={routes} />
+    </React.StrictMode>
   </div>
 )
