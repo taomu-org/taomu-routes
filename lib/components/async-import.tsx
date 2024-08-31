@@ -34,7 +34,11 @@ export const AsyncImport: React.FC<AsyncImportProps> = ({
   ...props
 }) => {
   const [lazyElement, setLazyElement] = React.useState<React.ReactElement | null>(null)
-  const abort = React.useRef(false)
+  const currentName = React.useRef('')
+
+  React.useEffect(() => {
+    currentName.current = props.name
+  }, [props.name])
 
   React.useEffect(() => {
     /// 非静态路由重置组件
@@ -43,7 +47,10 @@ export const AsyncImport: React.FC<AsyncImportProps> = ({
     }
 
     element?.then(({ default: Page }) => {
-      if (abort.current) return
+      // 此处的 props.name 必须是在闭包中的旧数据
+      if (currentName.current !== props.name) {
+        return // 获得的数据流不是当前需要加载的组件，直接丢弃
+      }
 
       // 如果存在 permissionCode 字段，进行权限校验，需要在 HroProvider 中设置 permissionCodeMap
       if (props.permissionCode) {
@@ -102,13 +109,6 @@ export const AsyncImport: React.FC<AsyncImportProps> = ({
       }
     })
   }, [element, props.isStatic ? void 0 : props.location.key])
-
-  React.useEffect(() => {
-    return () => {
-      if (abort.current) return
-      abort.current = true
-    }
-  }, [])
 
   /** 错误渲染 */
   function renderError(err: any) {
