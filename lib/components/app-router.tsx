@@ -13,7 +13,6 @@ import {
 } from 'react-router-dom'
 import { parseQuery } from 'taomu-toolkit'
 
-import type { RouteContextType, RouteConfig } from '../defines'
 import { type AutoRoutes, routeTools } from '../routes'
 import { useCustomEvent } from '../hooks'
 import { RouteContext } from './router.ctx'
