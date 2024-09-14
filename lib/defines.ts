@@ -34,12 +34,6 @@ export interface RouteConfig extends Omit<RouteProps, 'children' | 'element'>, R
   contentProps?: React.HTMLAttributes<HTMLDivElement>
   /** 关键字 用于检索 */
   keywords?: string[]
-  /** 是否显示侧边栏 */
-  showSidebar?: boolean
-  /** 是否显示顶部导航栏 */
-  showNavbar?: boolean
-  /** 是否显示面包屑 */
-  showBreadcrumb?: boolean
   /** 自动替换页面标题 */
   autoReplaceTitle?: boolean
   /**
