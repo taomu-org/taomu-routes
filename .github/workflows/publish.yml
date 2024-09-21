@@ -33,6 +33,9 @@ jobs:
       - name: Run tests
         run: npm test # 运行测试，确保代码没有问题
 
+      - name: Build
+        run: npm run build
+
       - name: Publish to npm
         run: npm publish # 发布到 npm
         env:
