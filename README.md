@@ -12,16 +12,13 @@ npm install taomu-routes
 
 in `tsconfig.json`
 
-```json5
+```json
 {
-  // ...
-  "compilerOptions": {
-    // ...
-    "types": [
-      // ...
-      "taomu-routes/types"
-    ]
-  }
+  compilerOptions: {
+    types: [
+      'taomu-routes/types',
+    ],
+  },
 }
 ```
 
@@ -95,3 +92,7 @@ const Comp = () => {
   )
 }
 ```
+
+## LICENSE
+
+Apache-2.0
