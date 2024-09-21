@@ -21,7 +21,7 @@
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "types",
-    "outDir": "dist",
+    "outDir": "out", // github action 即便是 --declaration 也会生成 js 文件
   },
   "include": [
     "lib",
