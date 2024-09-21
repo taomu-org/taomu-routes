@@ -12,7 +12,7 @@ npm install taomu-routes
 
 in `tsconfig.json`
 
-```json
+```json5
 {
   // ...
   "compilerOptions": {
