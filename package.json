@@ -50,6 +50,11 @@
 		"vite": "^5.4.7",
 		"vitest": "^2.1.1"
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/taomu-org/taomu-routes"
+	},
+	"homepage": "https://taomu-org.github.io/taomu-routes/",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	}
