@@ -14,14 +14,11 @@ in `tsconfig.json`
 
 ```json
 {
-  // ...
-  "compilerOptions": {
-    // ...
-    "types": [
-      // ...
-      "taomu-routes/types"
-    ]
-  }
+  compilerOptions: {
+    types: [
+      'taomu-routes/types',
+    ],
+  },
 }
 ```
 
@@ -95,3 +92,7 @@ const Comp = () => {
   )
 }
 ```
+
+## LICENSE
+
+Apache-2.0
