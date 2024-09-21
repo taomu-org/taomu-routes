@@ -44,6 +44,8 @@ export class AutoRoutes extends Map<string, RouteConfig> {
     }
 
     this.createAutoRoutes()
+
+    AutoRoutes.allRoutesMapStorage.set(this.id, this)
   }
 
   /**
