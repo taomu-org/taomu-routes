@@ -2,7 +2,6 @@ import { queryStringify, hasDuplicate } from 'taomu-toolkit'
 import type { NavigateOptions } from 'react-router-dom'
 
 import { dispatchCustomEvent } from '../hooks'
-import type { RouteChangeParams } from '../defines'
 
 import { AutoRoutes, type RoutesId } from './auto-routes'
 

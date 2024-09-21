@@ -1,7 +1,5 @@
 import React from 'react'
 
-import type { PageProps, BeforeRouterHook } from '../defines'
-
 export interface ImportErrorProps {
   code?: number | string
   message?: string

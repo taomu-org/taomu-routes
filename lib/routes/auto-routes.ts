@@ -1,5 +1,4 @@
 import { uuid } from 'taomu-toolkit'
-import { RouteConfig } from '../defines'
 import { checkPathParamsUnique } from './route-tools'
 
 export type RoutesId = string
