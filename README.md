@@ -14,11 +14,9 @@ in `tsconfig.json`
 
 ```json
 {
-  compilerOptions: {
-    types: [
-      'taomu-routes/types',
-    ],
-  },
+  "compilerOptions": {
+    "types": ["taomu-routes/types"]
+  }
 }
 ```
 
