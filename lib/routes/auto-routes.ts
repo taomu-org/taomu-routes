@@ -34,7 +34,7 @@ export class AutoRoutes extends Map<string, RouteConfig> {
     public modules: Record<string, unknown>,
     /** 配置项 */
     public options: CreateRoutesOptions = {},
-    /** 唯一路由 id, 默认为 Symbol */
+    /** 唯一路由 id */
     public id: RoutesId = uuid()
   ) {
     super()
