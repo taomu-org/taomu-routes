@@ -7,7 +7,7 @@ import { AppRouter, AutoRoutes } from '../../lib'
 
 const root = createRoot(document.getElementById('root')!)
 
-const routes = new AutoRoutes(import.meta.glob('./views/**/routes.(ts|tsx)', { eager: true }))
+const routes = new AutoRoutes('main-routes', import.meta.glob('./views/**/routes.(ts|tsx)', { eager: true }))
 
 console.log(routes)
 
