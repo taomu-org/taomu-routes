@@ -1,4 +1,3 @@
-import { uuid } from 'taomu-toolkit'
 import { checkPathParamsUnique } from './route-tools'
 
 export type RoutesId = string
@@ -30,12 +29,12 @@ export class AutoRoutes extends Map<string, RouteConfig> {
   }
 
   constructor(
+    /** 唯一路由 id */
+    public id: RoutesId,
     /** 路由模块 (import.meta.glob) */
     public modules: Record<string, unknown>,
     /** 配置项 */
-    public options: CreateRoutesOptions = {},
-    /** 唯一路由 id */
-    public id: RoutesId = uuid()
+    public options: CreateRoutesOptions = {}
   ) {
     super()
 

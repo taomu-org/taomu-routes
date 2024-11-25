@@ -1,6 +1,6 @@
 # taomu-routes
 
-base: react-router-dom
+[Documentation](https://taomu-org.github.io/taomu-routes/)
 
 ## Install
 
