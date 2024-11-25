@@ -5,7 +5,7 @@ import { expect, test } from 'vitest'
 import { AutoRoutes } from '../lib/routes/auto-routes'
 
 test('createAutoRoutes', () => {
-  const routes = new AutoRoutes(import.meta.glob('./test-src/views/**/routes.(ts|tsx)', { eager: true }))
+  const routes = new AutoRoutes('main-routes', import.meta.glob('./test-src/views/**/routes.(ts|tsx)', { eager: true }))
 
   console.log(routes)
 
