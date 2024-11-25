@@ -31,7 +31,7 @@ import { createRoot } from 'react-dom/client'
 import { AutoRoutes, AppRouter } from 'taomu-routes'
 
 // with vite
-const routes = new AutoRoutes(import.meta.glob('./views/**/routes.(ts|tsx)', { eager: true }))
+const routes = new AutoRoutes('main-routes', import.meta.glob('./views/**/routes.(ts|tsx)', { eager: true }))
 
 const root = createRoot(document.getElementById('root')!)
 
