@@ -8,12 +8,12 @@
       "DOM"
     ],
     "jsx": "react-jsx",
+    "esModuleInterop": true,
     "moduleResolution": "Node",
     "strict": true,
     "sourceMap": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
     "noEmit": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

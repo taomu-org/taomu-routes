@@ -47,9 +47,9 @@ export const AppRouter = React.memo<AppRouterProps>((props) => {
  * @param routes
  * @returns
  */
-function createRoutes(createProps: AppRouterProps): JSX.Element[] {
-  const res: JSX.Element[] = []
-  let noMatch: JSX.Element | undefined = undefined
+function createRoutes(createProps: AppRouterProps): React.JSX.Element[] {
+  const res: React.JSX.Element[] = []
+  let noMatch: React.JSX.Element | undefined = undefined
 
   createProps.routes.forEach((conf) => {
     const routeEl = createRouteItem(conf, createProps)
