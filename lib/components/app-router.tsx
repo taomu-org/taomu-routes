@@ -10,7 +10,7 @@ import {
   useNavigate,
   useLocation,
   useParams,
-} from 'react-router-dom'
+} from 'react-router'
 import { parseQuery } from 'taomu-toolkit'
 
 import { type AutoRoutes, routeTools } from '../routes'
@@ -25,7 +25,7 @@ export interface AppRouterProps
   routeType?: 'hash' | 'browser'
   contextValue?: Partial<RouteContextType>
   /** 包裹 Route Item 的函数组件 */
-  layoutFC?: React.FC<any>
+  layoutFC?: React.FC<LayoutFCProps>
 }
 
 /**
@@ -125,7 +125,7 @@ function createRouteItem(routeConfig: RouteConfig, createProps: AppRouterProps) 
           }
 
           return (
-            <LayoutFC data-env={pageProps.BUILD_ENV} data-route={name} {...nextProps.contentProps}>
+            <LayoutFC data-env={pageProps.BUILD_ENV} data-route={name} pageProps={pageProps} {...nextProps.contentProps}>
               {elementEl}
             </LayoutFC>
           )

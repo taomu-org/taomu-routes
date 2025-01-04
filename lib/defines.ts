@@ -1,4 +1,4 @@
-import type { RouteProps, Location, NavigateFunction, NavigateOptions } from 'react-router-dom'
+import type { RouteProps, Location, NavigateFunction, NavigateOptions } from 'react-router'
 import type { AppRouterProps } from './components'
 
 declare global {
@@ -115,4 +115,9 @@ declare global {
     props: PageProps,
     next: (addProps?: PageProps) => void
   ) => boolean | void | Promise<boolean | void>
+
+  export interface LayoutFCProps {
+    pageProps: PageProps
+    children: React.ReactNode
+  }
 }

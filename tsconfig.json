@@ -14,7 +14,7 @@
     "sourceMap": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
+    "noEmit": true, // 生成 ts 类型文件
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
