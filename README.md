@@ -44,6 +44,19 @@ root.render(
 )
 ```
 
+with rsbuild (webpack)
+
+```tsx
+const pageSource = require.context('@/views', true, /routes\.tsx?$/)
+const pageModules: Record<string, any> = {}
+
+pageSource.keys().forEach((key) => {
+  pageModules[key] = pageSource(key)
+})
+
+const routes = new AutoRoutes('main-routes', pageModules)
+```
+
 ## Route Config
 
 in `src/views/**/routes.ts`
