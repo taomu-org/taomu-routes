@@ -1,5 +1,5 @@
 import { queryStringify, hasDuplicate } from 'taomu-toolkit'
-import type { NavigateOptions } from 'react-router-dom'
+import type { NavigateOptions } from 'react-router'
 
 import { dispatchCustomEvent } from '../hooks'
 

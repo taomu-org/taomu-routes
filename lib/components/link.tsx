@@ -1,5 +1,5 @@
 import React from 'react'
-import { LinkProps as ReactRouterLinkProps, useHref } from 'react-router-dom'
+import { LinkProps as ReactRouterLinkProps, useHref } from 'react-router'
 
 import { RoutesId, AutoRoutes } from '../routes/auto-routes'
 import { navigateTo, type NavigateToByRouteNameOptions, formatRoutePath } from '../routes/route-tools'
